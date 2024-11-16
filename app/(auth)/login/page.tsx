@@ -19,15 +19,18 @@ export default function Page() {
   const router = useRouter();
   const [email, setEmail] = useState('');
   const [isSuccessful, setIsSuccessful] = useState(false);
-  const [state, formAction] = useActionState<LoginActionState, FormData>(login, {
-    status: 'idle',
-  });
+  const [state, formAction] = useActionState<LoginActionState, FormData>(
+    login,
+    {
+      status: 'idle',
+    }
+  );
 
   useEffect(() => {
     if (state.status === 'failed') {
       toast.error(t('login.error.invalidCredentials'));
     } else if (state.status === 'invalid_data') {
-      toast.error(t('login.error.invalidData')); 
+      toast.error(t('login.error.invalidData'));
     } else if (state.status === 'success') {
       setIsSuccessful(true);
       router.refresh();
@@ -55,8 +58,12 @@ export default function Page() {
 
           <div className="w-full max-w-md rounded-lg border bg-card p-8 shadow-sm">
             <div className="mb-8 text-center">
-              <h1 className="mb-2 text-2xl font-bold text-foreground">{t('login.form.signIn')}</h1>
-              <p className="text-sm text-muted-foreground">{t('login.form.signInTitle')}</p>
+              <h1 className="mb-2 text-2xl font-bold text-foreground">
+                {t('login.form.signIn')}
+              </h1>
+              <p className="text-sm text-muted-foreground">
+                {t('login.form.signInTitle')}
+              </p>
             </div>
             <AuthForm action={handleSubmit} defaultEmail={email}>
               <SubmitButton isSuccessful={isSuccessful}>
@@ -65,7 +72,10 @@ export default function Page() {
 
               <p className="mt-4 text-center text-sm text-muted-foreground">
                 {t('login.form.signUpPrompt')}{' '}
-                <Link href="/register" className="font-semibold text-primary hover:text-primary/90">
+                <Link
+                  href="/register"
+                  className="font-semibold text-primary hover:text-primary/90"
+                >
                   {t('login.form.signUpCta')}
                 </Link>
                 {t('login.form.signInCtaContent')}

@@ -31,7 +31,7 @@ export default function Page() {
     if (state.status === 'user_exists') {
       toast.error(t('register.error.userExists'));
     } else if (state.status === 'failed') {
-      toast.error(t('register.error.failed')); 
+      toast.error(t('register.error.failed'));
     } else if (state.status === 'invalid_data') {
       toast.error(t('register.error.invalidData'));
     } else if (state.status === 'success') {
@@ -62,8 +62,12 @@ export default function Page() {
 
           <div className="w-full max-w-md rounded-lg border bg-card p-8 shadow-sm">
             <div className="mb-8 text-center">
-              <h1 className="mb-2 text-2xl font-bold text-foreground">{t('login.form.signUp')}</h1>
-              <p className="text-sm text-muted-foreground">{t('login.form.signUpTitle')}</p>
+              <h1 className="mb-2 text-2xl font-bold text-foreground">
+                {t('login.form.signUp')}
+              </h1>
+              <p className="text-sm text-muted-foreground">
+                {t('login.form.signUpTitle')}
+              </p>
             </div>
 
             <AuthForm action={handleSubmit} defaultEmail={email}>
@@ -73,7 +77,10 @@ export default function Page() {
 
               <p className="mt-4 text-center text-sm text-muted-foreground">
                 {t('login.form.signInPrompt')}{' '}
-                <Link href="/login" className="font-semibold text-primary hover:text-primary/90">
+                <Link
+                  href="/login"
+                  className="font-semibold text-primary hover:text-primary/90"
+                >
                   {t('login.form.signInCta')}
                 </Link>
                 {t('login.form.signInCtaContent')}

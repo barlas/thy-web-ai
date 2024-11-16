@@ -46,7 +46,7 @@ type GroupedChats = {
   older: Chat[];
 };
 
-export function ChatItem ({
+export function ChatItem({
   chat,
   isActive,
   onDelete,
@@ -180,9 +180,7 @@ export function SidebarHistory({ user }: { user: User | undefined }) {
       <SidebarGroup>
         <SidebarGroupContent>
           <div className="text-zinc-500 w-full flex flex-row justify-center items-center text-sm gap-2">
-            <div>
-              {t('chat.history.empty')}
-            </div>
+            <div>{t('chat.history.empty')}</div>
           </div>
         </SidebarGroupContent>
       </SidebarGroup>

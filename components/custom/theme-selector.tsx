@@ -15,9 +15,9 @@ export function ThemeSelector() {
   }, []);
 
   if (!mounted) return null;
-  
+
   const currentTheme = theme === 'system' ? systemTheme : theme;
-  
+
   return (
     <Button
       onClick={() => setTheme(currentTheme === 'dark' ? 'light' : 'dark')}

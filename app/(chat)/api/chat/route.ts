@@ -3,7 +3,7 @@ import {
   Message,
   StreamData,
   streamObject,
-  streamText
+  streamText,
 } from 'ai';
 import { z } from 'zod';
 
@@ -15,7 +15,7 @@ import {
   deleteChatById,
   getChatById,
   saveChat,
-  saveMessages
+  saveMessages,
 } from '@/lib/db/queries';
 import {
   generateUUID,
@@ -27,9 +27,7 @@ import { generateTitleFromUserMessage } from '../../actions';
 
 export const maxDuration = 60;
 
-type AllowedTools =
-  | 'getWeather'
-  | 'getMenu';
+type AllowedTools = 'getWeather' | 'getMenu';
 
 const weatherTools: AllowedTools[] = ['getWeather'];
 const menuTools: AllowedTools[] = ['getMenu'];
@@ -86,7 +84,8 @@ export async function POST(request: Request) {
     experimental_activeTools: allTools,
     tools: {
       getMenu: {
-        description: 'Request information on dietary options for meal menu items',
+        description:
+          'Request information on dietary options for meal menu items',
         parameters: z.object({
           content: z.string().describe('The whole content of the menu.'),
         }),
@@ -110,7 +109,7 @@ export async function POST(request: Request) {
             footerDisclaimer: z.string(),
             isBusiness: z.boolean(),
           });
-          
+
           // streamObject to generate and stream the JSON object
           const { textStream, object } = await streamObject({
             model: customModel(model.apiIdentifier),
@@ -119,7 +118,7 @@ export async function POST(request: Request) {
             output: 'object',
             schema: schema,
           });
-      
+
           // Stream the JSON text to the client
           for await (const textChunk of textStream) {
             streamingData.append({
@@ -127,10 +126,10 @@ export async function POST(request: Request) {
               content: textChunk,
             });
           }
-      
+
           // Indicate that the streaming is finished
           streamingData.append({ type: 'finish', content: '' });
-      
+
           // Get the final parsed object
           const parsedData = await object;
           return parsedData;
@@ -187,7 +186,7 @@ export async function POST(request: Request) {
           console.error('Failed to save chat', error);
           streamingData.append({
             type: 'error',
-            error: 'Failed to save messages'
+            error: 'Failed to save messages',
           });
         }
       }

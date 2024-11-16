@@ -18,9 +18,7 @@ export const Overview = () => {
         <p className="flex flex-row justify-center gap-4 items-center">
           <MessageIcon size={32} />
         </p>
-        <p>
-          {t('welcome')}
-        </p>
+        <p>{t('welcome')}</p>
       </div>
     </motion.div>
   );

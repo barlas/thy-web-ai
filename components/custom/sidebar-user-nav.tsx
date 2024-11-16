@@ -49,7 +49,7 @@ export function SidebarUserNav({ user }: { user: User }) {
               onSelect={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
             >
               {t('theme.toggle', {
-                mode: theme === 'light' ? t('theme.dark') : t('theme.light')
+                mode: theme === 'light' ? t('theme.dark') : t('theme.light'),
               })}
             </DropdownMenuItem>
             <DropdownMenuSeparator />

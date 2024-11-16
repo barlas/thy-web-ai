@@ -37,9 +37,7 @@ export function ChatHeader({ selectedModelId }: { selectedModelId: string }) {
           </Button>
         </BetterTooltip>
       )}
-      <LanguageSelector
-        className="order-1 md:order-2"
-      />
+      <LanguageSelector className="order-1 md:order-2" />
       <ThemeSelector />
     </header>
   );

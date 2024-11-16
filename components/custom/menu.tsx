@@ -4,23 +4,24 @@ import { t } from 'i18next';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { Card, CardContent } from "@/components/ui/card";
-import { Skeleton } from "@/components/ui/skeleton";
-import { Tooltip, TooltipProvider, TooltipTrigger, TooltipContent } from "@/components/ui/tooltip";
+import { Card, CardContent } from '@/components/ui/card';
+import { Skeleton } from '@/components/ui/skeleton';
+import {
+  Tooltip,
+  TooltipProvider,
+  TooltipTrigger,
+  TooltipContent,
+} from '@/components/ui/tooltip';
 
 export const SAMPLE: Menu = {
   mealServices: [
     {
-      mealServiceType: "...",
-      selectionOptions: [
-        [
-          { dishName: "..." },
-        ]
-      ],
+      mealServiceType: '...',
+      selectionOptions: [[{ dishName: '...' }]],
     },
   ],
-  footerDisclaimer: "...",
-  isBusiness: false
+  footerDisclaimer: '...',
+  isBusiness: false,
 };
 
 interface Menu {
@@ -63,14 +64,18 @@ interface MenuProps {
   onSelectDish?: (dish: string, ingredients?: string) => void;
 }
 
-export function Menu({ menu = SAMPLE, loading = false, onSelectDish }: MenuProps) {
+export function Menu({
+  menu = SAMPLE,
+  loading = false,
+  onSelectDish,
+}: MenuProps) {
   const safeMenu = menu && menu.mealServices ? menu : { mealServices: [] };
   const [activeCourseIndex, setActiveCourseIndex] = useState(0);
   const hasMultipleCourses = safeMenu.mealServices.length > 1;
   const { t } = useTranslation();
 
   const handleDishClick = (dishName: string, ingredients?: string) => {
-    const prompt = ingredients 
+    const prompt = ingredients
       ? t('menu.tellMeMoreWithIngredients', { dishName, ingredients })
       : t('menu.tellMeMore', { dishName });
     onSelectDish?.(prompt);
@@ -117,9 +122,14 @@ export function Menu({ menu = SAMPLE, loading = false, onSelectDish }: MenuProps
                         <TooltipProvider>
                           <Tooltip>
                             <TooltipTrigger asChild>
-                              <button 
+                              <button
                                 className="flex flex-col items-center gap-0.5 w-full transition-colors hover:bg-muted/50 dark:hover:bg-slate-800/50 rounded-md p-1"
-                                onClick={() => handleDishClick(item.dishName, item.ingredients)}
+                                onClick={() =>
+                                  handleDishClick(
+                                    item.dishName,
+                                    item.ingredients
+                                  )
+                                }
                               >
                                 <div className="flex items-center justify-center gap-2 w-full">
                                   {item.separatorAndOr && (

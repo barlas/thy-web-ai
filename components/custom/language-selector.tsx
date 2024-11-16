@@ -66,9 +66,7 @@ export function LanguageSelector({
             className="gap-4 group/item flex flex-row justify-between items-center"
             data-active={lang.id === locale}
           >
-            <div className="flex flex-col gap-1 items-start">
-              {lang.label}
-            </div>
+            <div className="flex flex-col gap-1 items-start">{lang.label}</div>
             <div className="text-primary dark:text-primary-foreground opacity-0 group-data-[active=true]/item:opacity-100">
               <CheckCirclFillIcon />
             </div>

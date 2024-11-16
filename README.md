@@ -13,11 +13,12 @@
 </p>
 <br/>
 
-## Architecture 
+## Architecture
 
 Uses a modern, modular architecture designed for scalability and performance.
 
 ### 🎨 Frontend
+
 - **[Next.js](https://nextjs.org) App Router**
   - Client-side routing and server-side rendering
   - React Server Components (RSCs)
@@ -28,6 +29,7 @@ Uses a modern, modular architecture designed for scalability and performance.
   - Supports multiple languages using [next-i18next](https://github.com/isaachinman/next-i18next).
 
 ### 🔧 Backend
+
 - **API Routes**
   - `/api/chat`: Message processing
   - `/api/files/upload`: File management
@@ -38,6 +40,7 @@ Uses a modern, modular architecture designed for scalability and performance.
   - [Vercel Blob](https://vercel.com/storage/blob): Media and file storage
 
 ### 🤖 AI Integration
+
 - **[AI SDK](https://sdk.vercel.ai/docs)**
   - OpenAI `GPT-4o` integration
   - Message streaming and response processing
@@ -48,6 +51,7 @@ Uses a modern, modular architecture designed for scalability and performance.
 ## Setup Instructions
 
 ### Prerequisites
+
 - [Node.js](https://nodejs.org/) 18+
 - [pnpm](https://pnpm.io/) package manager
 - [Vercel](https://vercel.com/) account
@@ -56,6 +60,7 @@ Uses a modern, modular architecture designed for scalability and performance.
 ### Installation Steps
 
 1. Set up environment variables:
+
 ```bash
 npm i -g vercel
 vercel link    # Link to Vercel project
@@ -63,6 +68,7 @@ vercel env pull # Pull environment variables
 ```
 
 2. Install and run:
+
 ```bash
 pnpm install
 pnpm dev

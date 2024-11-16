@@ -16,14 +16,11 @@ export function AuthForm({
   defaultEmail?: string;
 }) {
   const { t } = useTranslation();
-  
+
   return (
     <Form action={action} className="flex flex-col gap-4">
       <div className="flex flex-col gap-2">
-        <Label
-          htmlFor="email"
-          className="text-sm font-medium"
-        >
+        <Label htmlFor="email" className="text-sm font-medium">
           {t('login.form.email')}
         </Label>
 
@@ -41,10 +38,7 @@ export function AuthForm({
       </div>
 
       <div className="flex flex-col gap-2">
-        <Label
-          htmlFor="password"
-          className="text-sm font-medium"
-        >
+        <Label htmlFor="password" className="text-sm font-medium">
           {t('login.form.password')}
         </Label>
 
