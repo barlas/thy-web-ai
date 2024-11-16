@@ -5,7 +5,7 @@ import cx from 'classnames';
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 
-import { Vote } from '@/db/schema';
+import { Vote } from '@/lib/db/schema';
 
 import { SparklesIcon } from './icons';
 import { Markdown } from './markdown';

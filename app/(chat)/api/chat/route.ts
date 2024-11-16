@@ -16,7 +16,7 @@ import {
   getChatById,
   saveChat,
   saveMessages
-} from '@/db/queries';
+} from '@/lib/db/queries';
 import {
   generateUUID,
   getMostRecentUserMessage,
