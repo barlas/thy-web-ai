@@ -2,7 +2,7 @@
   "login.form.signUp": "Sign up",
   "login.form.signIn": "Sign in",
   "login.form.signInTitle": "Use your email and password to sign in",
-  "login.form.signUpTitle": "E-posta ve şifrenizi kullanarak hesap oluşturun",
+  "login.form.signUpTitle": "Create an account with your email and password",
   "login.form.email": "Email Address",
   "login.form.password": "Password",
   "login.form.signUpPrompt": "Don't have an account? ",
