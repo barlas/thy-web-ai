@@ -158,39 +158,31 @@ export async function POST(request: Request) {
           const responseMessagesWithoutIncompleteToolCalls =
             sanitizeResponseMessages(responseMessages);
 
-          // Check if we have valid messages to save
           if (!responseMessagesWithoutIncompleteToolCalls?.length) {
             throw new Error('No valid messages to save');
           }
 
-          const messagesToSave = responseMessagesWithoutIncompleteToolCalls
-            .filter(message => message.content && typeof message.content === 'string')
-            .map((message) => {
-              const messageId = generateUUID();
+          await saveMessages({
+            messages: responseMessagesWithoutIncompleteToolCalls.map(
+              (message) => {
+                const messageId = generateUUID();
 
-              if (message.role === 'assistant') {
-                streamingData.appendMessageAnnotation({
-                  messageIdFromServer: messageId,
-                });
+                if (message.role === 'assistant') {
+                  streamingData.appendMessageAnnotation({
+                    messageIdFromServer: messageId,
+                  });
+                }
+
+                return {
+                  id: messageId,
+                  chatId: id,
+                  role: message.role,
+                  content: message.content,
+                  createdAt: new Date(),
+                };
               }
-
-              return {
-                id: messageId,
-                chatId: id,
-                role: message.role,
-                content: message.content,
-                createdAt: new Date(),
-              };
-            });
-
-          if (messagesToSave.length > 0) {
-            await saveMessages({
-              messages: messagesToSave,
-            });
-          } else {
-            throw new Error('No valid messages to save after filtering');
-          }
-
+            ),
+          });
         } catch (error) {
           console.error('Failed to save chat', error);
           streamingData.append({
