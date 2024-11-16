@@ -1,14 +1,14 @@
-import type {
+import {
   CoreAssistantMessage,
   CoreMessage,
   CoreToolMessage,
   Message,
   ToolInvocation,
 } from 'ai';
-import { type ClassValue, clsx } from 'clsx';
+import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 
-import type { Message as DBMessage, Document } from '@/lib/db/schema';
+import { Message as DBMessage } from '@/db/schema';
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -24,7 +24,7 @@ export const fetcher = async (url: string) => {
 
   if (!res.ok) {
     const error = new Error(
-      'An error occurred while fetching the data.',
+      'An error occurred while fetching the data.'
     ) as ApplicationError;
 
     error.info = await res.json();
@@ -44,7 +44,7 @@ export function getLocalStorage(key: string) {
 }
 
 export function generateUUID(): string {
-  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
     const r = (Math.random() * 16) | 0;
     const v = c === 'x' ? r : (r & 0x3) | 0x8;
     return v.toString(16);
@@ -64,7 +64,7 @@ function addToolMessageToChat({
         ...message,
         toolInvocations: message.toolInvocations.map((toolInvocation) => {
           const toolResult = toolMessage.content.find(
-            (tool) => tool.toolCallId === toolInvocation.toolCallId,
+            (tool) => tool.toolCallId === toolInvocation.toolCallId
           );
 
           if (toolResult) {
@@ -85,7 +85,7 @@ function addToolMessageToChat({
 }
 
 export function convertToUIMessages(
-  messages: Array<DBMessage>,
+  messages: Array<DBMessage>
 ): Array<Message> {
   return messages.reduce((chatMessages: Array<Message>, message) => {
     if (message.role === 'tool') {
@@ -96,7 +96,7 @@ export function convertToUIMessages(
     }
 
     let textContent = '';
-    const toolInvocations: Array<ToolInvocation> = [];
+    let toolInvocations: Array<ToolInvocation> = [];
 
     if (typeof message.content === 'string') {
       textContent = message.content;
@@ -127,9 +127,9 @@ export function convertToUIMessages(
 }
 
 export function sanitizeResponseMessages(
-  messages: Array<CoreToolMessage | CoreAssistantMessage>,
+  messages: Array<CoreToolMessage | CoreAssistantMessage>
 ): Array<CoreToolMessage | CoreAssistantMessage> {
-  const toolResultIds: Array<string> = [];
+  let toolResultIds: Array<string> = [];
 
   for (const message of messages) {
     if (message.role === 'tool') {
@@ -151,7 +151,7 @@ export function sanitizeResponseMessages(
         ? toolResultIds.includes(content.toolCallId)
         : content.type === 'text'
           ? content.text.length > 0
-          : true,
+          : true
     );
 
     return {
@@ -161,7 +161,7 @@ export function sanitizeResponseMessages(
   });
 
   return messagesBySanitizedContent.filter(
-    (message) => message.content.length > 0,
+    (message) => message.content.length > 0
   );
 }
 
@@ -171,7 +171,7 @@ export function sanitizeUIMessages(messages: Array<Message>): Array<Message> {
 
     if (!message.toolInvocations) return message;
 
-    const toolResultIds: Array<string> = [];
+    let toolResultIds: Array<string> = [];
 
     for (const toolInvocation of message.toolInvocations) {
       if (toolInvocation.state === 'result') {
@@ -182,7 +182,7 @@ export function sanitizeUIMessages(messages: Array<Message>): Array<Message> {
     const sanitizedToolInvocations = message.toolInvocations.filter(
       (toolInvocation) =>
         toolInvocation.state === 'result' ||
-        toolResultIds.includes(toolInvocation.toolCallId),
+        toolResultIds.includes(toolInvocation.toolCallId)
     );
 
     return {
@@ -194,23 +194,13 @@ export function sanitizeUIMessages(messages: Array<Message>): Array<Message> {
   return messagesBySanitizedToolInvocations.filter(
     (message) =>
       message.content.length > 0 ||
-      (message.toolInvocations && message.toolInvocations.length > 0),
+      (message.toolInvocations && message.toolInvocations.length > 0)
   );
 }
 
 export function getMostRecentUserMessage(messages: Array<CoreMessage>) {
   const userMessages = messages.filter((message) => message.role === 'user');
   return userMessages.at(-1);
-}
-
-export function getDocumentTimestampByIndex(
-  documents: Array<Document>,
-  index: number,
-) {
-  if (!documents) return new Date();
-  if (index > documents.length) return new Date();
-
-  return documents[index].createdAt;
 }
 
 export function getMessageIdFromAnnotations(message: Message) {

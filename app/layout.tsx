@@ -1,14 +1,14 @@
-import type { Metadata } from 'next';
-import { Toaster } from 'sonner';
+import { Metadata } from 'next';
 
-import { ThemeProvider } from '@/components/theme-provider';
+import { ClientLayout } from '@/components/custom/client-layout';
+import { ThemeProvider } from '@/components/custom/theme-provider';
 
 import './globals.css';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://chat.vercel.ai'),
-  title: 'Next.js Chatbot Template',
-  description: 'Next.js chatbot template using the AI SDK.',
+  title: 'Turkish Airlines',
+  description: 'Turkish Airlines in-flight assistant.',
 };
 
 export const viewport = {
@@ -63,8 +63,9 @@ export default async function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <Toaster position="top-center" />
-          {children}
+          <ClientLayout>
+            {children}
+          </ClientLayout>
         </ThemeProvider>
       </body>
     </html>
