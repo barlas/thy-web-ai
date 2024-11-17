@@ -13,6 +13,10 @@
 </p>
 <br/>
 
+## Demo
+
+https://github.com/user-attachments/assets/00e4f23c-26c8-4050-a943-0c90a52b669a
+
 ## Architecture
 
 Uses a modern, modular architecture designed for scalability and performance.
